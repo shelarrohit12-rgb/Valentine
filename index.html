@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #ffe6e6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  color: #333;
+}
+.container {
+  max-width: 480px;
+  padding: 20px;
+}
+h1 {
+  color: #c2185b;
+  font-size: 2.2em;
+}
+button {
+  margin-top: 25px;
+  width: 80%;
+  padding: 18px;
+  font-size: 1.5em;
+  border: none;
+  border-radius: 50px;
+  background: #e91e63;
+  color: white;
+}
+#msg {
+  margin-top: 30px;
+  font-size: 1.3em;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+#heart {
+  font-size: 4em;
+  animation: beat 1s infinite alternate;
+}
+@keyframes beat {
+  to { transform: scale(1.15); }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Pooja,<br>will you be my Valentine?</h1>
+  <button onclick="this.style.display='none';document.getElementById('msg').style.opacity=1">
+    Yes 💖
+  </button>
+  <div id="msg">
+    <div id="heart">💘</div>
+    <p>You just made my Valentine perfect.</p>
+  </div>
+</div>
+
+</body>
+</html>
