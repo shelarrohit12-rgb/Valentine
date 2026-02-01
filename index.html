@@ -6,100 +6,145 @@
 <title>Valentine</title>
 
 <style>
-body {
-  margin: 0;
-  height: 100vh;
-  background: #ffe6e6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: Arial, sans-serif;
-}
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ffe6ee, #fff5f8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  }
 
-.container {
-  text-align: center;
-  background: white;
-  padding: 25px;
-  border-radius: 15px;
-  width: 90%;
-  max-width: 400px;
-  position: relative;
-}
+  .card {
+    background: white;
+    width: 90%;
+    max-width: 420px;
+    padding: 28px 22px;
+    border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: popIn 0.6s ease;
+  }
 
-h1 {
-  color: #c2185b;
-}
+  @keyframes popIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
 
-.buttons {
-  margin-top: 30px;
-  position: relative;
-  height: 120px;
-}
+  h1 {
+    margin: 0;
+    font-size: 1.8em;
+    color: #c2185b;
+  }
 
-button {
-  padding: 15px 30px;
-  font-size: 18px;
-  border-radius: 30px;
-  border: none;
-  cursor: pointer;
-  position: absolute;
-}
+  p.sub {
+    margin-top: 10px;
+    font-size: 1.05em;
+    color: #555;
+  }
 
-#yes {
-  background: #e91e63;
-  color: white;
-  left: 50%;
-  transform: translateX(-50%);
-}
+  .buttons {
+    margin-top: 30px;
+    height: 120px;
+    position: relative;
+  }
 
-#no {
-  background: #eee;
-  color: #333;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 60px;
-}
+  button {
+    padding: 14px 32px;
+    font-size: 17px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    transition: transform 0.15s ease;
+  }
 
-video {
-  width: 100%;
-  height: 100%;
-}
+  #yes {
+    background: #e91e63;
+    color: white;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 8px 20px rgba(233,30,99,0.35);
+  }
+
+  #no {
+    background: #f1f1f1;
+    color: #333;
+    left: 50%;
+    top: 60px;
+    transform: translateX(-50%);
+  }
+
+  .result {
+    display: none;
+    margin-top: 20px;
+    animation: fadeIn 0.6s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .result h2 {
+    color: #e91e63;
+    margin-bottom: 4px;
+  }
+
+  .result p {
+    margin-top: 0;
+    color: #444;
+    font-size: 1.05em;
+  }
+
+  video {
+    width: 100%;
+    margin-top: 14px;
+    border-radius: 14px;
+  }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="card" id="card">
   <h1>Pooja,<br>will you be my Valentine?</h1>
+  <p class="sub">Choose wisely 😌</p>
 
-  <div class="buttons">
+  <div class="buttons" id="buttons">
     <button id="yes">Yes 💖</button>
     <button id="no">No</button>
+  </div>
+
+  <div class="result" id="result">
+    <h2>I knew it ❤️</h2>
+    <p>Love you 3000</p>
+    <video src="celebrate.mp4" controls autoplay playsinline></video>
   </div>
 </div>
 
 <script>
-let yesSize = 1;
-const yesBtn = document.getElementById("yes");
-const noBtn = document.getElementById("no");
+  const noBtn = document.getElementById("no");
+  const yesBtn = document.getElementById("yes");
+  const buttons = document.getElementById("buttons");
+  const result = document.getElementById("result");
 
-function moveNo() {
-  const x = Math.random() * 200 - 100;
-  const y = Math.random() * 80 - 40;
-  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+  function dodgeNo() {
+    const x = Math.random() * 220 - 110;
+    const y = Math.random() * 70 - 35;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+  }
 
-  yesSize += 0.05;
-  yesBtn.style.transform = `translateX(-50%) scale(${yesSize})`;
-}
+  noBtn.addEventListener("touchstart", dodgeNo);
+  noBtn.addEventListener("mouseover", dodgeNo);
 
-noBtn.addEventListener("touchstart", moveNo);
-noBtn.addEventListener("mouseover", moveNo);
-
-yesBtn.addEventListener("click", () => {
-  document.body.innerHTML = `
-    <video src="celebrate.mp4" autoplay controls playsinline></video>
-  `;
-});
+  yesBtn.addEventListener("click", () => {
+    buttons.style.display = "none";
+    result.style.display = "block";
+  });
 </script>
 
 </body>
